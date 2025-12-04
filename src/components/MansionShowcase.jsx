@@ -7,7 +7,7 @@ export default function MansionShowcase() {
     <section className="w-full bg-black text-white py-16 px-4 md:px-20">
 
       {/* -------- TOP HEADING + PARAGRAPH (RIGHT SIDE) -------- */}
-      <div className="max-w-8xl mx-auto mb-20 text-center lg:text-right">
+      <div className="max-w-8xl mx-auto mb-10 md:mb-20 text-center lg:text-right">
         <h2 className="text-2xl md:text-3xl font-bold mb-4">
           Where Architectural Grace Meets Serene Living
         </h2>
@@ -22,7 +22,7 @@ export default function MansionShowcase() {
       </div>
 
       {/* -------- MAIN TWO COLUMN GRID -------- */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start max-w-7xl mx-auto">
 
         {/* -------- LEFT SIDE BIG IMAGE -------- */}
         <div className="relative flex justify-center lg:justify-start">
@@ -52,7 +52,7 @@ export default function MansionShowcase() {
   <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
 
     {/* LEFT: Location + Price */}
-    <div className="space-y-6 text-center mt-0 md:mt-30">
+    <div className="space-y-3 text-center mt-0 md:mt-30">
 
       <div className="flex items-center gap-3 text-gray-300">
         <MapPin className="w-6 h-6 text-[#8BB6B1]" />
@@ -87,7 +87,7 @@ export default function MansionShowcase() {
   </div>
 
   {/* Details BELOW BOTH columns */}
-  <div className="text-gray-300 text-lg leading-relaxed mt-20 text-center">
+  <div className="text-gray-300 text-lg leading-relaxed mt-12 md:mt-20 text-center">
     <p>
       Exclusive Private Entrance | Double-Height Living Lounge <br />
      Sunlit Courtyard & Landscaped Deck <br />

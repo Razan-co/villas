@@ -28,17 +28,26 @@ export default function BookingForm() {
     address: "",
     phone: "",
     villaId: "villa-1",
+    price: 0, 
   });
 
   // Auto-calc days
-  useEffect(() => {
-    if (form.checkIn && form.checkOut) {
-      const diff = dayjs(form.checkOut).diff(dayjs(form.checkIn), "day");
-      if (diff > 0) {
-        setForm((prev) => ({ ...prev, days: String(diff) }));
-      }
+ useEffect(() => {
+  if (form.checkIn && form.checkOut) {
+    const diff = dayjs(form.checkOut).diff(dayjs(form.checkIn), "day");
+
+    if (diff > 0) {
+      const calculatedPrice = diff * 15000;
+
+      setForm((prev) => ({
+        ...prev,
+        days: String(diff),
+        price: calculatedPrice, // ✅ AUTO PRICE
+      }));
     }
-  }, [form.checkIn, form.checkOut]);
+  }
+}, [form.checkIn, form.checkOut]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -93,6 +102,7 @@ export default function BookingForm() {
       address: form.address,
       phone: form.phone,
       villaId: form.villaId,
+      price: form.price,
     };
 
     try {
@@ -202,17 +212,32 @@ export default function BookingForm() {
           </div>
 
           {/* Full Name */}
-          <div>
-            <label className="block font-semibold mb-2">Full Name</label>
-            <input
-              type="text"
-              name="fullName"
-              value={form.fullName}
-              onChange={handleChange}
-              className="w-full bg-transparent border border-gray-400 px-3 py-3 rounded-sm text-white"
-              placeholder="Your full name"
-            />
-          </div>
+        {/* Full Name + Price */}
+<div className="grid md:grid-cols-2 gap-4">
+  <div>
+    <label className="block font-semibold mb-2">Full Name</label>
+    <input
+      type="text"
+      name="fullName"
+      value={form.fullName}
+      onChange={handleChange}
+      className="w-full bg-transparent border border-gray-400 px-3 py-3 rounded-sm text-white"
+      placeholder="Your full name"
+    />
+  </div>
+
+  {/* ✅ PRICE DISPLAY */}
+  <div>
+    <label className="block font-semibold mb-2">Total Price</label>
+    <input
+      type="text"
+      value={`₹${form.price.toLocaleString("en-IN")}`}
+      disabled
+      className="w-full bg-transparent border border-gray-400 px-3 py-3 rounded-sm text-green-400 font-bold cursor-not-allowed"
+    />
+  </div>
+</div>
+
 
           {/* Email */}
           <div>

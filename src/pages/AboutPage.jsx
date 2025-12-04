@@ -2,7 +2,7 @@ import React from "react";
 
 export default function AboutPage() {
   return (
-    <div   data-scroll-section className="bg-black text-white px-6 md:px-20 pt-24">
+    <div className="bg-black text-white px-6 md:px-20 py-26">
 
       {/* TITLE */}
       <h1 className="text-3xl md:text-4xl font-bold mb-10">About US</h1>
@@ -31,7 +31,7 @@ export default function AboutPage() {
       </div>
 
       {/* BOTTOM PARAGRAPH */}
-      <p className="text-gray-300 text-lg leading-relaxed mt-16 max-w-8xl">
+      <p className="text-gray-300 text-lg leading-relaxed mt-16  max-w-8xl">
         Our commitment is simple: to provide our clients with an unforgettable
         villa experience where elegance meets ease. From the moment you book
         until your departure, our dedicated team ensures every detail is taken

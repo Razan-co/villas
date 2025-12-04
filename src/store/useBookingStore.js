@@ -8,110 +8,46 @@ export const useBookingStore = create((set, get) => ({
   error: null,
   success: false,
 
-  // LOAD ALL BOOKINGS
-  fetchBookings: async () => {
-  try {
-    set({ loading: true, error: null });
-
-    const res = await axios.get("/api/bookings");
-    const data = res.data;
-
-    const bookings =
-      Array.isArray(data)
-        ? data
-        : Array.isArray(data.bookings)
-        ? data.bookings
-        : Array.isArray(data.data)
-        ? data.data
-        : [];
-
-    set({ bookings, loading: false });
-
-  } catch (error) {
-    set({
-      error: error.response?.data?.message || "Failed to load bookings",
-      loading: false,
-    });
-  }
-},
   // CREATE BOOKING
- // CREATE BOOKING
-createBooking: async (payload) => {
-  set({ error: null, success: false });
+  createBooking: async (payload) => {
+    set({ loading: true, error: null, success: false });
 
-  const bookings = get().bookings;
-  const newStart = new Date(payload.checkIn);
-  const newEnd = new Date(payload.checkOut);
-
-  const conflict = bookings.some((b) => {
-    const start = new Date(b.checkIn);
-    const end = new Date(b.checkOut);
-    return newStart <= end && newEnd >= start;
-  });
-
-  if (conflict) {
-    const msg = "These dates are already booked.";
-    set({ error: msg });
-    throw new Error(msg);
-  }
-
-  try {
-    set({ loading: true });
-
-    const res = await axios.post("/api/bookings", payload);
-
-    const newBooking =
-      res.data.booking ||
-      res.data.data ||
-      res.data;
-
-    set((state) => ({
-      bookings: [...state.bookings, newBooking],
-      selectedBooking: newBooking,
-      success: true,
-      loading: false,
-    }));
-
-    return newBooking;
-  } catch (error) {
-    const msg = error.response?.data?.message || "Failed to create booking";
-    set({ error: msg, loading: false });
-    throw new Error(msg);
-  }
-},
-
-  // GET BOOKING BY ID
-  fetchBookingById: async (id) => {
     try {
-      set({ loading: true, error: null });
+      const res = await axios.post("/api/bookings", payload);
+      const newBooking = res.data;
 
-      const res = await axios.get(`/api/bookings/${id}`);
-      set({ selectedBooking: res.data, loading: false });
-    } catch (error) {
-      set({
-        error: error.response?.data?.message || "Booking not found",
+      set((state) => ({
+        bookings: [...state.bookings, newBooking],
+        selectedBooking: newBooking,
         loading: false,
-      });
+        success: true,
+      }));
+
+      return newBooking;
+    } catch (err) {
+      const msg = err.response?.data?.message || "Failed to create booking";
+      set({ error: msg, loading: false });
+      throw new Error(msg);
     }
   },
 
   // CANCEL BOOKING
   cancelBooking: async (id) => {
-    try {
-      set({ loading: true });
+    set({ loading: true, error: null });
 
+    try {
       await axios.delete(`/api/bookings/${id}`);
 
       set((state) => ({
-        bookings: state.bookings.filter((b) => b._id !== id),
+        bookings: state.bookings.filter(b => b._id !== id),
         selectedBooking: null,
         loading: false,
+        success: true,
       }));
-    } catch (error) {
-      set({
-        error: error.response?.data?.message || "Failed to cancel booking",
-        loading: false,
-      });
+    } catch (err) {
+      const msg = err.response?.data?.message || "Failed to cancel booking";
+      set({ error: msg, loading: false, success: false });
+      throw new Error(msg);
     }
   },
 

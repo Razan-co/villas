@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Support() {
   return (
-    <div data-scroll-section className="min-h-screen bg-black text-white mt-10 px-6 md:px-16 pt-20">
+    <div className="min-h-screen bg-black text-white mt-10 px-6 md:px-16 pt-20">
       <div className="max-w-4xl mx-auto space-y-10">
 
         {/* TITLE */}

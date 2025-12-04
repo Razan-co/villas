@@ -1,22 +1,14 @@
 import React from "react";
 import { MapPin, IndianRupee } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "../store/useAuthStore";
 
 export default function VillaShowcase() {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-    // const isAuthenticated = true; // force login ON
-  const {isAuthenticated} = useAuthStore();
-
+  // ✅ Always go directly to booking
   const handleBookNow = () => {
-    if (!isAuthenticated) {
-      navigate("/login"); // redirect to login
-    } else {
-      navigate("/book"); // user logged in → go to villa detail page
-    }
+    navigate("/book");
   };
-
 
   return (
     <section className="w-full bg-black text-white py-16 px-4 md:px-10">
@@ -37,11 +29,10 @@ export default function VillaShowcase() {
       {/* GRID */}
       <div className="relative px-5 md:px-10 grid grid-cols-1 lg:grid-cols-3 gap-10 items-center">
 
-        {/* LEFT IMAGE — centered on mobile */}
+        {/* LEFT IMAGE */}
         <div className="relative flex justify-center lg:justify-start">
           <div className="relative w-fit">
 
-            {/* Top-left frame */}
             <div className="absolute -top-4 -left-4 w-16 h-1 bg-[#8BB6B1]" />
             <div className="absolute -top-4 -left-4 w-1 h-16 bg-[#8BB6B1]" />
 
@@ -51,7 +42,6 @@ export default function VillaShowcase() {
               className="w-72 h-72 md:w-96 md:h-96 object-cover rounded-lg"
             />
 
-            {/* Bottom-right frame */}
             <div className="absolute -bottom-4 -right-4 w-16 h-1 bg-[#8BB6B1]" />
             <div className="absolute -bottom-4 -right-4 w-1 h-16 bg-[#8BB6B1]" />
 
@@ -85,17 +75,20 @@ export default function VillaShowcase() {
             </p>
           </div>
 
-          <button onClick={handleBookNow} className="bg-[#8BB6B1] text-black text-xl font-semibold px-10 py-3 rounded-xl hover:opacity-80 transition">
+          {/* ✅ No Auth Check */}
+          <button
+            onClick={handleBookNow}
+            className="bg-[#8BB6B1] text-black text-xl font-semibold px-10 py-3 rounded-xl hover:opacity-80 transition"
+          >
             Book Now
           </button>
 
         </div>
 
-        {/* RIGHT IMAGE — centered on mobile */}
+        {/* RIGHT IMAGE */}
         <div className="relative flex justify-center lg:justify-end">
           <div className="relative w-fit">
 
-            {/* Top-right frame */}
             <div className="absolute -top-4 -right-4 w-16 h-1 bg-[#8BB6B1]" />
             <div className="absolute -top-4 -right-4 w-1 h-16 bg-[#8BB6B1]" />
 
@@ -105,7 +98,6 @@ export default function VillaShowcase() {
               className="w-72 h-72 md:w-96 md:h-96 object-cover rounded-lg"
             />
 
-            {/* Bottom-left frame */}
             <div className="absolute -bottom-4 -left-4 w-16 h-1 bg-[#8BB6B1]" />
             <div className="absolute -bottom-4 -left-4 w-1 h-16 bg-[#8BB6B1]" />
 
